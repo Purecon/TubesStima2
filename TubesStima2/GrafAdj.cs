@@ -24,7 +24,8 @@ namespace TubesStima2
             //proses tiap line, mulai dari indeks satu
             for (int i = 1; i < lines.Length; i++)
             {
-                string temp;
+                string temp, temp1;
+                string value_out;
                 List<string> tempList = new List<string>();
                 //split jadi dua simpul
                 string[] substring = lines[i].Split(' ');
@@ -33,24 +34,52 @@ namespace TubesStima2
                 //add ke graph (adjacency map)
                 //cek sudah exists
                 bool keyExists = map.TryGetValue(key, out temp);
+                bool valExists = map.TryGetValue(value, out temp1);
                 if(keyExists)
                 {
                     tempList.Add(temp);
-                    tempList.Add(value);
+                    if (!tempList.Contains(value))
+                    {
+                        tempList.Add(value); 
+                    }
                     string[] tempArr = tempList.ToArray();
-                    value = string.Join(" ", tempArr);
+                    value_out = string.Join(" ", tempArr);
                     //debug
-                    Console.WriteLine("Value: "+value);
-                    map[key] = value;
+                    Console.WriteLine("Value1ex: "+ value_out);
+                    map[key] = value_out;
                 }
                 else
                 {
+                    value_out = value;
                     //debug
-                    Console.WriteLine("Value: "+value);
-                    map.Add(key, value);
+                    Console.WriteLine("Value1: "+ value_out);
+                    map.Add(key, value_out);
                     //tambah simpul
                     jmlh_simpul++;
-                }   
+                }
+                tempList = new List<string>();
+                if (valExists)
+                {
+                    tempList.Add(temp1);
+                    if (!tempList.Contains(key))
+                    {
+                        tempList.Add(key);
+                    }
+                    string[] tempArr = tempList.ToArray();
+                    value_out = string.Join(" ", tempArr);
+                    //debug
+                    Console.WriteLine("Value2ex: " + value_out);
+                    map[value] = value_out;
+                }
+                else
+                {
+                    value_out = key;
+                    //debug
+                    Console.WriteLine("Value2: " + value_out);
+                    map.Add(value, value_out);
+                    //tambah simpul
+                    jmlh_simpul++;
+                }
             }
             //debug line
             foreach (var pair in map)

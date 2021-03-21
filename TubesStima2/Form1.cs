@@ -9,7 +9,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-
 namespace TubesStima2
 {
     public partial class Testo : Form
@@ -120,7 +119,9 @@ namespace TubesStima2
                 Console.WriteLine($"Simpul1: {substring[0]}");
                 Console.WriteLine($"Simpul2: {substring[1]}");
                 //add ke graph
-                graph.AddEdge(substring[0],substring[1]);
+                graph.AddEdge(substring[0], substring[1]);
+                //kalau ingin 2 arah
+                //graph.AddEdge(substring[1], substring[0]);
             }
         }
 
