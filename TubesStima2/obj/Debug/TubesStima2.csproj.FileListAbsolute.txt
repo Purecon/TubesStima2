@@ -1,0 +1,15 @@
+D:\Furqon\Stima\Tubes2\TubesStima2\TubesStima2\obj\Debug\TubesStima2.csprojAssemblyReference.cache
+D:\Furqon\Stima\Tubes2\TubesStima2\TubesStima2\obj\Debug\TubesStima2.Properties.Resources.resources
+D:\Furqon\Stima\Tubes2\TubesStima2\TubesStima2\obj\Debug\TubesStima2.csproj.GenerateResource.cache
+D:\Furqon\Stima\Tubes2\TubesStima2\TubesStima2\obj\Debug\TubesStima2.csproj.CoreCompileInputs.cache
+D:\Furqon\Stima\Tubes2\TubesStima2\TubesStima2\bin\Debug\TubesStima2.exe.config
+D:\Furqon\Stima\Tubes2\TubesStima2\TubesStima2\bin\Debug\TubesStima2.exe
+D:\Furqon\Stima\Tubes2\TubesStima2\TubesStima2\bin\Debug\TubesStima2.pdb
+D:\Furqon\Stima\Tubes2\TubesStima2\TubesStima2\bin\Debug\AutomaticGraphLayout.dll
+D:\Furqon\Stima\Tubes2\TubesStima2\TubesStima2\bin\Debug\AutomaticGraphLayout.Drawing.dll
+D:\Furqon\Stima\Tubes2\TubesStima2\TubesStima2\bin\Debug\Microsoft.Msagl.GraphViewerGdi.dll
+D:\Furqon\Stima\Tubes2\TubesStima2\TubesStima2\bin\Debug\Microsoft.Msagl.WpfGraphControl.dll
+D:\Furqon\Stima\Tubes2\TubesStima2\TubesStima2\obj\Debug\TubesStima2.csproj.CopyComplete
+D:\Furqon\Stima\Tubes2\TubesStima2\TubesStima2\obj\Debug\TubesStima2.exe
+D:\Furqon\Stima\Tubes2\TubesStima2\TubesStima2\obj\Debug\TubesStima2.pdb
+D:\Furqon\Stima\Tubes2\TubesStima2\TubesStima2\obj\Debug\TubesStima2.Testo.resources
