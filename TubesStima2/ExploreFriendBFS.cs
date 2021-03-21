@@ -49,6 +49,12 @@ namespace TubesStima2
             while (curr != null)
             {
                 hasil.Add(curr);
+                string temp;
+                bool keyExists = prevNode.TryGetValue(curr, out temp);
+                if (!keyExists)
+                {
+                    throw new KeyNotFoundException();
+                }
                 curr = prevNode[curr];
                 derajat++;
             }

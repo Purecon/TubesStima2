@@ -67,9 +67,18 @@ namespace TubesStima2
                 System.Console.WriteLine(simpul);
             }
             ExploreFriendBFS eksplorasiBFS = new ExploreFriendBFS();
-            eksplorasiBFS.bfs(graf, "A", "H");
-            eksplorasiBFS.tampilkanHasil();
-            eksplorasiBFS.tampilkanDerajat();
+            try
+            {
+                eksplorasiBFS.bfs(graf, "A", "W");
+                eksplorasiBFS.tampilkanHasil();
+                eksplorasiBFS.tampilkanDerajat();
+            }
+            catch (Exception ex)
+            {
+                System.Console.WriteLine(ex);
+                System.Console.WriteLine("Tidak ada jalur koneksi yang tersedia");
+                System.Console.WriteLine("Anda harus memulai koneksi baru itu sendiri.");
+            }
             //create a form 
             System.Windows.Forms.Form form = new System.Windows.Forms.Form();
             //create a viewer object 
