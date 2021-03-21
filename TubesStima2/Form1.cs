@@ -66,6 +66,10 @@ namespace TubesStima2
             {
                 System.Console.WriteLine(simpul);
             }
+            ExploreFriendBFS eksplorasiBFS = new ExploreFriendBFS();
+            eksplorasiBFS.bfs(graf, "A", "H");
+            eksplorasiBFS.tampilkanHasil();
+            eksplorasiBFS.tampilkanDerajat();
             //create a form 
             System.Windows.Forms.Form form = new System.Windows.Forms.Form();
             //create a viewer object 
