@@ -13,9 +13,13 @@ namespace TubesStima2
 {
     public partial class Testo : Form
     {
+        private GrafAdj graf;
+        private Microsoft.Msagl.Drawing.Graph graph;
         public Testo()
         {
             InitializeComponent();
+            ExploreFriendButton.Enabled = false;
+            RecomFriendButton.Enabled = false;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -55,30 +59,18 @@ namespace TubesStima2
             System.Console.WriteLine("Sebelum read");
             string[] lines = readFromFile(file_name);
             //create graf adjacency
-            GrafAdj graf = new GrafAdj();
+            graf = new GrafAdj();
             graf.createMap(lines);
             System.Console.WriteLine("Simpul: "+graf.getJmlhSimpul().ToString());
             System.Console.WriteLine("Sisi: "+graf.getJmlhSisi().ToString());
             System.Console.WriteLine("Setelah read");
-            //testing method
-            string[] list_simpul = graf.getDaftarSimpul();
-            foreach(var simpul in list_simpul)
-            {
-                System.Console.WriteLine(simpul);
-            }
-            ExploreFriendBFS eksplorasiBFS = new ExploreFriendBFS();
-            try
-            {
-                eksplorasiBFS.bfs(graf, "A", "W");
-                eksplorasiBFS.tampilkanHasil();
-                eksplorasiBFS.tampilkanDerajat();
-            }
-            catch (Exception ex)
-            {
-                System.Console.WriteLine(ex);
-                System.Console.WriteLine("Tidak ada jalur koneksi yang tersedia");
-                System.Console.WriteLine("Anda harus memulai koneksi baru itu sendiri.");
-            }
+            //Menciptakan graph
+            graph = new Microsoft.Msagl.Drawing.Graph("graph");
+            gambarGraph(graph, lines);
+            //enable button
+            ExploreFriendButton.Enabled = true;
+            RecomFriendButton.Enabled = true;
+            /*
             //create a form 
             System.Windows.Forms.Form form = new System.Windows.Forms.Form();
             //create a viewer object 
@@ -89,8 +81,6 @@ namespace TubesStima2
             gambarGraph(graph, lines);
             //bind the graph to the viewer 
             viewer.Graph = graph;
-            //graph langsung dimunculkan ke form 
-            gViewer1.Graph = graph;
             //associate the viewer with the form 
             form.SuspendLayout();
             viewer.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -98,6 +88,7 @@ namespace TubesStima2
             form.ResumeLayout();
             //show the form 
             form.ShowDialog();
+            */
         }
 
         private string[] readFromFile(string file_name)
@@ -132,7 +123,9 @@ namespace TubesStima2
                 Console.WriteLine($"Simpul1: {substring[0]}");
                 Console.WriteLine($"Simpul2: {substring[1]}");
                 //add ke graph
-                graph.AddEdge(substring[0], substring[1]);
+                var Edge = graph.AddEdge(substring[0], substring[1]);
+                Edge.Attr.ArrowheadAtTarget = Microsoft.Msagl.Drawing.ArrowStyle.None;
+                Edge.Attr.ArrowheadAtSource = Microsoft.Msagl.Drawing.ArrowStyle.None;
                 //kalau ingin 2 arah
                 //graph.AddEdge(substring[1], substring[0]);
             }
@@ -148,9 +141,26 @@ namespace TubesStima2
 
         }
 
-        private void gViewer1_Load(object sender, EventArgs e)
+        private void ExploreFriend_Click(object sender, EventArgs e)
         {
+            //Graph ditunjukkan di form2
+            var frm = new Form2(graph,graf);
+            frm.Location = this.Location;
+            frm.StartPosition = FormStartPosition.Manual;
+            frm.FormClosing += delegate { this.Show(); };
+            frm.Show();
+            this.Hide();
+        }
 
+        private void RecomFriendButton_Click(object sender, EventArgs e)
+        {
+            //Graph ditunjukkan di form2
+            var frm = new Form3(graph,graf);
+            frm.Location = this.Location;
+            frm.StartPosition = FormStartPosition.Manual;
+            frm.FormClosing += delegate { this.Show(); };
+            frm.Show();
+            this.Hide();
         }
     }
 }

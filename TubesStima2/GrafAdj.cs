@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TubesStima2
 {
-    class GrafAdj
+    public class GrafAdj
     {
         private Dictionary<string,string> map = new Dictionary<string, string>();
         private int jmlh_sisi = 0;

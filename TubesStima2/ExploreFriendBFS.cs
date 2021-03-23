@@ -86,5 +86,10 @@ namespace TubesStima2
         {
             System.Console.WriteLine("Derajat koneksi: {0}", derajat);
         }
+
+        public List<string> getHasil()
+        {
+            return hasil;
+        }
     }
 }
