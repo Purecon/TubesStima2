@@ -43,3 +43,5 @@ C:\Users\Rolland\Desktop\TubesStima2\TubesStima2\obj\Debug\TubesStima2.csproj.Co
 C:\Users\Rolland\Desktop\TubesStima2\TubesStima2\obj\Debug\TubesStima2.csproj.CopyComplete
 C:\Users\Rolland\Desktop\TubesStima2\TubesStima2\obj\Debug\TubesStima2.exe
 C:\Users\Rolland\Desktop\TubesStima2\TubesStima2\obj\Debug\TubesStima2.pdb
+D:\Furqon\Stima\Tubes2\Repo\TubesStima2\TubesStima2\obj\Debug\TubesStima2.Form2.resources
+D:\Furqon\Stima\Tubes2\Repo\TubesStima2\TubesStima2\obj\Debug\TubesStima2.Form3.resources
