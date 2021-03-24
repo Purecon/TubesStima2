@@ -39,6 +39,8 @@ namespace TubesStima2
             this.labelTarget = new System.Windows.Forms.Label();
             this.comboBoxAcc = new System.Windows.Forms.ComboBox();
             this.comboBoxTarget = new System.Windows.Forms.ComboBox();
+            this.labelTitleDerajat = new System.Windows.Forms.Label();
+            this.labelDerajatKoneksi = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // gViewer1
@@ -162,11 +164,30 @@ namespace TubesStima2
             this.comboBoxTarget.TabIndex = 8;
             this.comboBoxTarget.SelectedIndexChanged += new System.EventHandler(this.comboBoxTarget_SelectedIndexChanged);
             // 
+            // labelTitleDerajat
+            // 
+            this.labelTitleDerajat.AutoSize = true;
+            this.labelTitleDerajat.Location = new System.Drawing.Point(693, 17);
+            this.labelTitleDerajat.Name = "labelTitleDerajat";
+            this.labelTitleDerajat.Size = new System.Drawing.Size(87, 13);
+            this.labelTitleDerajat.TabIndex = 9;
+            this.labelTitleDerajat.Text = "Derajat koneksi: ";
+            // 
+            // labelDerajatKoneksi
+            // 
+            this.labelDerajatKoneksi.AutoSize = true;
+            this.labelDerajatKoneksi.Location = new System.Drawing.Point(726, 43);
+            this.labelDerajatKoneksi.Name = "labelDerajatKoneksi";
+            this.labelDerajatKoneksi.Size = new System.Drawing.Size(0, 13);
+            this.labelDerajatKoneksi.TabIndex = 10;
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.labelDerajatKoneksi);
+            this.Controls.Add(this.labelTitleDerajat);
             this.Controls.Add(this.comboBoxTarget);
             this.Controls.Add(this.comboBoxAcc);
             this.Controls.Add(this.labelTarget);
@@ -195,5 +216,7 @@ namespace TubesStima2
         private System.Windows.Forms.Label labelTarget;
         private System.Windows.Forms.ComboBox comboBoxAcc;
         private System.Windows.Forms.ComboBox comboBoxTarget;
+        private System.Windows.Forms.Label labelTitleDerajat;
+        private System.Windows.Forms.Label labelDerajatKoneksi;
     }
 }

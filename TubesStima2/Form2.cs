@@ -30,6 +30,8 @@ namespace TubesStima2
         private void warnaiGraph()
         {
             string[] list_simpul = graf.getDaftarSimpul();
+            string selectedAcc = comboBoxAcc.Items[comboBoxAcc.SelectedIndex].ToString();
+            string targetAcc = comboBoxTarget.Items[comboBoxTarget.SelectedIndex].ToString();
             foreach (var simpul in list_simpul)
             {
                 graph.FindNode(simpul).Attr.FillColor = Microsoft.Msagl.Drawing.Color.White;
@@ -37,8 +39,6 @@ namespace TubesStima2
             if (checkBoxBFS.Checked)
             {
                 //BFS
-                string selectedAcc = comboBoxAcc.Items[comboBoxAcc.SelectedIndex].ToString();
-                string targetAcc = comboBoxTarget.Items[comboBoxTarget.SelectedIndex].ToString();
                 System.Console.WriteLine("Menggunakan BFS");
                 ExploreFriendBFS eksplorasiBFS = new ExploreFriendBFS();
                 /*
@@ -62,7 +62,7 @@ namespace TubesStima2
                 {
                     graph.FindNode(rute[i]).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Green;
                 }
-
+                labelDerajatKoneksi.Text = eksplorasiBFS.getDerajat().ToString();
                 /*
                 string[] rute = hasil.ToArray();
                 System.Console.WriteLine("Nama akun:{0} dan {1}", rute[0], rute[rute.Length - 1]);
@@ -84,6 +84,12 @@ namespace TubesStima2
             {
                 //DFS
                 System.Console.WriteLine("Menggunakan DFS");
+                ExploreFriendDFS eksplorasiDFS = new ExploreFriendDFS();
+                string[] rute = eksplorasiDFS.getConnection(graf, selectedAcc, targetAcc);
+                for (int i = 0; i < rute.Length; i++)
+                {
+                    graph.FindNode(rute[i]).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Green;
+                }
             }
             gViewer1.Graph = graph;
         }

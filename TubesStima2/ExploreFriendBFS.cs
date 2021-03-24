@@ -91,5 +91,10 @@ namespace TubesStima2
         {
             return hasil;
         }
+
+        public int getDerajat()
+        {
+            return derajat;
+        }
     }
 }
