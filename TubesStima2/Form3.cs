@@ -42,6 +42,10 @@ namespace TubesStima2
             string selectedAcc = comboBoxAcc.Items[comboBoxAcc.SelectedIndex].ToString();
             FriendRecommendation friendRecom = new FriendRecommendation();
             IList<Tuple<string, HashSet<string>>> daftarRecom = friendRecom.getFriendRecommendation(graf,selectedAcc);
+            if(daftarRecom.Count == 0)
+            {
+                listBoxFriend.Items.Add("Tidak ada friend recommendation");
+            }
             foreach(var recom in daftarRecom)
             {
                 //BFS

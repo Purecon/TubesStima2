@@ -25,10 +25,17 @@ namespace TubesStima2
             graf = graf_input;
             initializeCombo();
             startButton.Enabled = false;
+            string[] list_simpul = graf.getDaftarSimpul();
+            foreach (var simpul in list_simpul)
+            {
+                graph.FindNode(simpul).Attr.FillColor = Microsoft.Msagl.Drawing.Color.White;
+            }
         }
 
         private void warnaiGraph()
         {
+            labelDerajatKoneksi.Text = "";
+            labelJalur.Text = "";
             string[] list_simpul = graf.getDaftarSimpul();
             string selectedAcc = comboBoxAcc.Items[comboBoxAcc.SelectedIndex].ToString();
             string targetAcc = comboBoxTarget.Items[comboBoxTarget.SelectedIndex].ToString();
@@ -55,17 +62,29 @@ namespace TubesStima2
                     System.Console.WriteLine("Anda harus memulai koneksi baru itu sendiri.");
                 }
                 */
-                if(selectedAcc != targetAcc)
+                try
                 {
-                    eksplorasiBFS.bfs(graf, selectedAcc, targetAcc);
-                    eksplorasiBFS.tampilkanHasil();
-                    string[] rute = eksplorasiBFS.getHasil().ToArray();
-                    for (int i = 0; i < rute.Length; i++)
+                    if (selectedAcc != targetAcc)
                     {
-                        graph.FindNode(rute[i]).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Green;
+                        eksplorasiBFS.bfs(graf, selectedAcc, targetAcc);
+                        eksplorasiBFS.tampilkanHasil();
+                        string[] rute = eksplorasiBFS.getHasil().ToArray();
+                        for (int i = 0; i < rute.Length; i++)
+                        {
+                            graph.FindNode(rute[i]).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Green;
+                        }
+                        tampilkanHasil(eksplorasiBFS.getHasil());
+                        labelDerajatKoneksi.Text = eksplorasiBFS.getDerajat().ToString();
                     }
-                    tampilkanHasil(eksplorasiBFS.getHasil());
-                    labelDerajatKoneksi.Text = eksplorasiBFS.getDerajat().ToString();
+                    else
+                    {
+                        MessageBox.Show("Tidak ada jalur koneksi yang tersedia", "Not Found!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Tidak ada jalur koneksi yang tersedia", "Not Found!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    System.Console.WriteLine(ex);
                 }
             }
             else
@@ -86,6 +105,7 @@ namespace TubesStima2
                 }
                 catch(Exception ex)
                 {
+                    MessageBox.Show("Tidak ada jalur koneksi yang tersedia", "Not Found!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     System.Console.WriteLine(ex);
                 }
             }
