@@ -70,17 +70,12 @@ namespace TubesStima2
         /* Update solution */
         private void update(GrafAdj network, string src, string dest)
         {
+            if (src == dest) {
+                throw new SelfConnectionException(src);
+            }
             List<string> connection = new List<string>();
-            connection.Add(src);
             string srcAdjacentString;
-            if (network.getMap().TryGetValue(src, out srcAdjacentString))
-            {
-                currentConnectionFound = System.Array.Exists<string>(srcAdjacentString.Split(' '), srcAdjacent => dfs(network, srcAdjacent, dest, ref connection));
-            }
-            else
-            {
-                currentConnectionFound = false;
-            }
+            currentConnectionFound = dfs(network, src, dest, ref connection);
             currentNetwork = network;
             currentSrc = src;
             currentDest = dest;
@@ -110,12 +105,19 @@ namespace TubesStima2
 
                 if (graph.getMap().TryGetValue(src, out srcAdjacentString))
                 {
-                    List<string> tailSolution = new List<string>();
-                    bool found = System.Array.Exists<string>(srcAdjacentString.Split(' '), adjacentNode => dfs(graph, adjacentNode, dest, ref tailSolution));
-                    if (found)
-                    {
-                        solution.Concat(tailSolution);
+                    solution.Add(src);
+                    bool found = false;
+                    foreach (string adjacentNode in srcAdjacentString.Split(' ')) {
+                        if (dfs(graph, adjacentNode, dest, ref solution)) {
+                            found = true;
+                            break;
+                        }
                     }
+
+                    if (!found) {
+                        solution.Remove(src);
+                    }
+
                     return found;
                 }
                 else
@@ -130,6 +132,13 @@ namespace TubesStima2
     {
         public NoConnectionException(string src, string dest) :
                 base("No connection from \"" + src + "\" to \"" + dest + "\"!")
+        { }
+    }
+
+    class SelfConnectionException : Exception
+    {
+        public SelfConnectionException(string src) :
+                base("Self connection detected from \"" + src + "\"!")
         { }
     }
 }

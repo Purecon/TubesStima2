@@ -54,16 +54,24 @@ namespace TubesStima2
                     {
                         if (friendOfFriend != user)
                         {
-                            Tuple<string, HashSet<string>> prevSameFriendOfFriendKvp = currentResult.FirstOrDefault<Tuple<string, HashSet<string>>>(prevFriend => prevFriend.Item1 == friendOfFriend);
-                            if (string.IsNullOrEmpty(prevSameFriendOfFriendKvp.Item1))
-                            {
-                                HashSet<string> friendInitialList = new HashSet<string>();
-                                friendInitialList.Add(friend);
-                                currentResult.Add(new Tuple<string, HashSet<string>>(friendOfFriend, new HashSet<string>(friendInitialList)));
+                            HashSet<string> prevHashSet = null;
+                            bool found = false;
+                            foreach (Tuple<string, HashSet<string>> prevFriend in currentResult) {
+                                if (prevFriend.Item1 == friendOfFriend) {
+                                    found = true;
+                                    prevHashSet = prevFriend.Item2;
+                                    break;
+                                }
                             }
-                            else
-                            {
-                                prevSameFriendOfFriendKvp.Item2.Add(friend);
+
+                            if (found) {
+                                prevHashSet.Add(friend);
+                            
+                            } else {
+                                HashSet<string> friendInitialSet = new HashSet<string>();
+                                friendInitialSet.Add(friend);
+                                currentResult.Add(new Tuple<string, HashSet<string>>(friendOfFriend, new HashSet<string>(friendInitialSet)));
+                            
                             }
                         }
                     }
