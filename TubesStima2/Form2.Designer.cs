@@ -41,6 +41,8 @@ namespace TubesStima2
             this.comboBoxTarget = new System.Windows.Forms.ComboBox();
             this.labelTitleDerajat = new System.Windows.Forms.Label();
             this.labelDerajatKoneksi = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.labelJalur = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // gViewer1
@@ -181,11 +183,29 @@ namespace TubesStima2
             this.labelDerajatKoneksi.Size = new System.Drawing.Size(0, 13);
             this.labelDerajatKoneksi.TabIndex = 10;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(400, 219);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(0, 13);
+            this.label1.TabIndex = 11;
+            // 
+            // labelJalur
+            // 
+            this.labelJalur.AutoSize = true;
+            this.labelJalur.Location = new System.Drawing.Point(35, 50);
+            this.labelJalur.Name = "labelJalur";
+            this.labelJalur.Size = new System.Drawing.Size(0, 13);
+            this.labelJalur.TabIndex = 12;
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.labelJalur);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.labelDerajatKoneksi);
             this.Controls.Add(this.labelTitleDerajat);
             this.Controls.Add(this.comboBoxTarget);
@@ -218,5 +238,7 @@ namespace TubesStima2
         private System.Windows.Forms.ComboBox comboBoxTarget;
         private System.Windows.Forms.Label labelTitleDerajat;
         private System.Windows.Forms.Label labelDerajatKoneksi;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelJalur;
     }
 }

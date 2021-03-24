@@ -77,7 +77,7 @@ namespace TubesStima2
                     }
                 }
 
-                currentResult.Sort((x, y) => x.Item2.Count().CompareTo(y.Item2.Count()));
+                currentResult.Sort((x, y) => y.Item2.Count().CompareTo(x.Item2.Count()));
             }
 
             currentNetwork = network;

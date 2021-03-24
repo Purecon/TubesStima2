@@ -64,6 +64,7 @@ namespace TubesStima2
                     {
                         graph.FindNode(rute[i]).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Green;
                     }
+                    tampilkanHasil(eksplorasiBFS.getHasil());
                     labelDerajatKoneksi.Text = eksplorasiBFS.getDerajat().ToString();
                 }
             }
@@ -80,6 +81,8 @@ namespace TubesStima2
                     graph.FindNode(rute[i]).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Green;
                 }
                 labelDerajatKoneksi.Text = eksplorasiDFS.getDegreeConnection(graf, selectedAcc, targetAcc).ToString();
+                List<string> ruteList = rute.ToList();
+                tampilkanHasil(ruteList);
                 }
                 catch(Exception ex)
                 {
@@ -99,6 +102,25 @@ namespace TubesStima2
                 comboBoxTarget.Items.Add(simpul);
                 System.Console.WriteLine(simpul);
             }
+        }
+
+        public void tampilkanHasil(List<string> hasil)
+        {
+            string[] rute = hasil.ToArray();
+            string outputString;
+            outputString = "Jalur pertemanan ";
+            for (int i = 0; i < rute.Length; i++)
+            {
+                if (i != rute.Length - 1)
+                {
+                    outputString = outputString+rute[i]+"->";
+                }
+                else
+                {
+                    outputString = outputString +rute[i];
+                }
+            }
+            labelJalur.Text = outputString;
         }
 
         private void gViewer1_Load(object sender, EventArgs e)
