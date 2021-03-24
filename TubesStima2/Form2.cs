@@ -55,40 +55,35 @@ namespace TubesStima2
                     System.Console.WriteLine("Anda harus memulai koneksi baru itu sendiri.");
                 }
                 */
-                eksplorasiBFS.bfs(graf, selectedAcc, targetAcc);
-                eksplorasiBFS.tampilkanHasil();
-                string[] rute = eksplorasiBFS.getHasil().ToArray();
-                for (int i = 0; i < rute.Length; i++)
+                if(selectedAcc != targetAcc)
                 {
-                    graph.FindNode(rute[i]).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Green;
-                }
-                labelDerajatKoneksi.Text = eksplorasiBFS.getDerajat().ToString();
-                /*
-                string[] rute = hasil.ToArray();
-                System.Console.WriteLine("Nama akun:{0} dan {1}", rute[0], rute[rute.Length - 1]);
-                System.Console.Write("Jalur pertemanan ");
-                for (int i = 0; i < rute.Length; i++)
-                {
-                    if (i != rute.Length - 1)
+                    eksplorasiBFS.bfs(graf, selectedAcc, targetAcc);
+                    eksplorasiBFS.tampilkanHasil();
+                    string[] rute = eksplorasiBFS.getHasil().ToArray();
+                    for (int i = 0; i < rute.Length; i++)
                     {
-                        System.Console.Write(rute[i] + "->");
+                        graph.FindNode(rute[i]).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Green;
                     }
-                    else
-                    {
-                        System.Console.WriteLine(rute[i]);
-                    }
+                    labelDerajatKoneksi.Text = eksplorasiBFS.getDerajat().ToString();
                 }
-                */
             }
             else
             {
                 //DFS
                 System.Console.WriteLine("Menggunakan DFS");
                 ExploreFriendDFS eksplorasiDFS = new ExploreFriendDFS();
+                try
+                { 
                 string[] rute = eksplorasiDFS.getConnection(graf, selectedAcc, targetAcc);
                 for (int i = 0; i < rute.Length; i++)
                 {
                     graph.FindNode(rute[i]).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Green;
+                }
+                labelDerajatKoneksi.Text = eksplorasiDFS.getDegreeConnection(graf, selectedAcc, targetAcc).ToString();
+                }
+                catch(Exception ex)
+                {
+                    System.Console.WriteLine(ex);
                 }
             }
             gViewer1.Graph = graph;

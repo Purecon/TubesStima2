@@ -41,9 +41,29 @@ namespace TubesStima2
             string selectedAcc = comboBoxAcc.Items[comboBoxAcc.SelectedIndex].ToString();
             FriendRecommendation friendRecom = new FriendRecommendation();
             IList<Tuple<string, HashSet<string>>> daftarRecom = friendRecom.getFriendRecommendation(graf,selectedAcc);
-            foreach(var x in daftarRecom)
+            foreach(var recom in daftarRecom)
             {
-                System.Console.WriteLine(x);
+                List<string> tempList = new List<string>();
+                string[] tetangga = graf.getMap()[selectedAcc].Split(' ');
+                System.Console.WriteLine(graf.getMap()[selectedAcc]);
+                string namaRecom = recom.Item1;
+                HashSet<string> daftarMutual = recom.Item2;
+                //syarat belum menjadi teman dan bukan dirinya sendiri
+                if (!Array.Exists(tetangga, element => element == namaRecom) && namaRecom!=selectedAcc)
+                {
+                    listBoxFriend.Items.Add(namaRecom);
+                    foreach(string nama in daftarMutual)
+                    {
+                        tempList.Add(nama);
+                    }
+                    string[] tempArr = tempList.ToArray();
+                    string outTetangga = tempArr.Length.ToString()+" Mutual friends: "+string.Join(" ", tempArr);
+                    listBoxFriend.Items.Add(outTetangga);
+                    listBoxFriend.Items.Add(" ");
+                }
+                //System.Console.WriteLine(recom);
+                //System.Console.WriteLine(recom.Item1);
+                //System.Console.WriteLine(recom.Item2);
             }
         }
 
