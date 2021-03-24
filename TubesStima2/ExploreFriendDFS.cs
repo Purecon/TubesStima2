@@ -1,12 +1,14 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace TubesStima2
 {
     class ExploreFriendDFS : IExploreFriend
     {
-        private boolean currentResultExists;
-        private boolean currentConnectionFound;
-        private GraphAdj currentNetwork;
+        private bool currentResultExists;
+        private bool currentConnectionFound;
+        private GrafAdj currentNetwork;
         private string currentSrc;
         private string currentDest;
         private List<string> currentConnection;
@@ -19,11 +21,11 @@ namespace TubesStima2
         }
 
         /* IExploreFriend implementation */
-        public string[] getConnection(GraphAdj network, string src, string dest)
+        public string[] getConnection(GrafAdj network, string src, string dest)
         {
-            if (isNeedToFindResult())
+            if (isNeedToFindResult(network, src, dest))
             {
-                update();
+                update(network, src, dest);
             }
 
             if (currentConnectionFound)
@@ -36,9 +38,9 @@ namespace TubesStima2
                 throw new NoConnectionException(src, dest);
             }
         }
-        public int getDegreeConnection(GraphAdj network, string src, string dest)
+        public int getDegreeConnection(GrafAdj network, string src, string dest)
         {
-            if (isNeedToFindResult())
+            if (isNeedToFindResult(network, src, dest))
             {
                 update(network, src, dest);
             }
@@ -56,7 +58,7 @@ namespace TubesStima2
 
         /* Returns true if the network, src, and dest are different from previous update.
          * If not currentResultExists, returns true. */
-        private boolean isNeedToFindResult(GraphAdj network, string src, string dest)
+        private bool isNeedToFindResult(GrafAdj network, string src, string dest)
         {
             if (currentResultExists)
             {
@@ -66,11 +68,19 @@ namespace TubesStima2
         }
 
         /* Update solution */
-        private void update(GraphAdj network, string src, string dest)
+        private void update(GrafAdj network, string src, string dest)
         {
             List<string> connection = new List<string>();
             connection.Add(src);
-            currentConectionFound = graph.getMap().Contains(edgeKvp => dfs(network, src, edgeKvp.value, ref connection));
+            string srcAdjacentString;
+            if (network.getMap().TryGetValue(src, out srcAdjacentString))
+            {
+                currentConnectionFound = System.Array.Exists<string>(srcAdjacentString.Split(' '), srcAdjacent => dfs(network, srcAdjacent, dest, ref connection));
+            }
+            else
+            {
+                currentConnectionFound = false;
+            }
             currentNetwork = network;
             currentSrc = src;
             currentDest = dest;
@@ -83,7 +93,7 @@ namespace TubesStima2
 
         /* Returns true if dest found from src in graph with DFS, solution is concatenate with route from src to dest.
          * If not found, returns false and solution does not change. */
-        private boolean dfs(GraphAdj graph, string src, string dest, ref List<string> solution)
+        private bool dfs(GrafAdj graph, string src, string dest, ref List<string> solution)
         {
             if (src == dest)
             {
@@ -96,21 +106,30 @@ namespace TubesStima2
             }
             else
             {
-                KeyValuePair srcEdgeKvp = graph.getMap().Find(edgeKvp => edgeKvp.value == src);
-                if (KeyValuePair<string, string>.IsNullOrEmpty(srcEdgeKvp))
+                string srcAdjacentString;
+
+                if (graph.getMap().TryGetValue(src, out srcAdjacentString))
                 {
-                    return false;
-                }
-                else
-                {
-                    boolean found = srcEdgeKvp.Value.Split(' ').Contains(adjacentNode => dfs(graph, src, adjacentNode, out tailSolution));
+                    List<string> tailSolution = new List<string>();
+                    bool found = System.Array.Exists<string>(srcAdjacentString.Split(' '), adjacentNode => dfs(graph, adjacentNode, dest, ref tailSolution));
                     if (found)
                     {
                         solution.Concat(tailSolution);
                     }
                     return found;
                 }
+                else
+                {
+                    return false;
+                }
             }
         }
+    }
+
+    class NoConnectionException : Exception
+    {
+        public NoConnectionException(string src, string dest) :
+                base("No connection from \"" + src + "\" to \"" + dest + "\"!")
+        { }
     }
 }

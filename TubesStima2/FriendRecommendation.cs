@@ -1,13 +1,15 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace TubesStima2
 {
     class FriendRecommendation : IFriendRecommendation
     {
         /* Constructor */
-        private boolean currentResultExists;
-        private List<(string, HashSet<string>)> currentResult;
-        private GraphAdj currentNetwork;
+        private bool currentResultExists;
+        private List<Tuple<string, HashSet<string>>> currentResult;
+        private GrafAdj currentNetwork;
         private string currentUser;
 
         public FriendRecommendation()
@@ -16,19 +18,19 @@ namespace TubesStima2
         }
 
         /* From IFriendRecommendation */
-        public IList<(string, ICollection<string>)> getFriendRecommendation(GraphAdj network, string user)
+        public IList<Tuple<string, HashSet<string>>> getFriendRecommendation(GrafAdj network, string user)
         {
-            if (isNeedToFindResult())
+            if (isNeedToFindResult(network, user))
             {
                 update(network, user);
             }
 
-            return new List<(string, HashSet<string>)>(currentResult);
+            return new List<Tuple<string, HashSet<string>>>(currentResult);
         }
 
         /* Returns true if the network and user are different from previous update.
          * If not currentResultExists, returns true. */
-        private boolean isNeedToFindResult(GraphAdj network, string user)
+        private bool isNeedToFindResult(GrafAdj network, string user)
         {
             if (currentResultExists)
             {
@@ -38,26 +40,26 @@ namespace TubesStima2
         }
 
         /* Update solution */
-        private void update(GraphAdj network, string user)
+        private void update(GrafAdj network, string user)
         {
-            currentResult = new List<(string, HashSet<string>)>();
-            KeyValuePair<string, string> userToUserFriendsKvp = network.getMap().Find(edgeKvp => edgeKvp.key == user);
-            if (!KeyValuePair<string, string>.IsNullOrEmpty(userToUserFriendsKvp))
+            currentResult = new List<Tuple<string, HashSet<string>>>();
+            string userFriendsString;
+            if (network.getMap().TryGetValue(user, out userFriendsString))
             {
-                HashSet userFriends = new HashSet<string>(userToUserFriendsKvp.Value.Split(' '));
+                HashSet<string> userFriends = new HashSet<string>(userFriendsString.Split(' '));
 
                 foreach (string friend in userFriends)
                 {
-                    foreach (string friendOfFriend in network.getMap().Find(edgeKvp => edgeKvp.key == friend).Value.Split(' '))
+                    foreach (string friendOfFriend in network.getMap().FirstOrDefault<KeyValuePair<string, string>>(edgeKvp => edgeKvp.Key == friend).Value.Split(' '))
                     {
                         if (friendOfFriend != user)
                         {
-                            KeyValuePair<string, string> prevSameFriendOfFriendKvp = currentResult.Find(prevFriend => prevFriend.Item1 == friendOfFriend);
-                            if (KeyValuePair<string, string>.IsNullOrEmpty(prevSameFriendOfFriendKvp))
+                            Tuple<string, HashSet<string>> prevSameFriendOfFriendKvp = currentResult.FirstOrDefault<Tuple<string, HashSet<string>>>(prevFriend => prevFriend.Item1 == friendOfFriend);
+                            if (string.IsNullOrEmpty(prevSameFriendOfFriendKvp.Item1))
                             {
-                                List<string> friendInitialList = new List<string>();
+                                HashSet<string> friendInitialList = new HashSet<string>();
                                 friendInitialList.Add(friend);
-                                currentResult.Add((friendOfFriend, new List<string>(friendInitialList)));
+                                currentResult.Add(new Tuple<string, HashSet<string>>(friendOfFriend, new HashSet<string>(friendInitialList)));
                             }
                             else
                             {
